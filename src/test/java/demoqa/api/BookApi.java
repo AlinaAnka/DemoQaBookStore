@@ -1,6 +1,7 @@
 package demoqa.api;
 
 import demoqa.models.BookModel;
+import demoqa.specs.Spec;
 import io.restassured.http.ContentType;
 
 import java.util.List;
@@ -21,7 +22,7 @@ public class BookApi {
                 .when()
                 .post("/BookStore/v1/Books")
                 .then()
-                .statusCode(201);
+                .spec(Spec.response(201));
     }
 
     public static void deleteBook(String token, String userId, String isbn) {
@@ -37,7 +38,7 @@ public class BookApi {
                 .delete("/BookStore/v1/Book")
                 .then()
                 .log().all()
-                .statusCode(204);
+                .spec(Spec.response(204));
     }
 
     public static void deleteAllBooks(String token, String userId) {
@@ -47,7 +48,7 @@ public class BookApi {
                 .when()
                 .delete("/BookStore/v1/Books")
                 .then()
-                .statusCode(204);
+                .spec(Spec.response(204));
     }
 
     public static List<BookModel> getUserBooks(String token, String userId) {
@@ -56,7 +57,7 @@ public class BookApi {
                 .when()
                 .get("/Account/v1/User/" + userId)
                 .then()
-                .statusCode(200)
+                .spec(Spec.response(200))
                 .extract()
                 .jsonPath()
                 .getList("books", BookModel.class);
