@@ -24,6 +24,9 @@ public class TestBase {
 
         Configuration.browser = System.getProperty("browser", "chrome");
         Configuration.browserVersion = System.getProperty("browserVersion", "127.0");
+        Configuration.browserSize = System.getProperty("screen_resolution", "1920x1080");
+        Configuration.pageLoadStrategy = "eager";
+        Configuration.timeout = 5000;
         Configuration.remote = System.getProperty("remoteUrl",
                 "https://user1:1234@selenoid.autotests.cloud/wd/hub");
 
