@@ -33,6 +33,7 @@ public class BookApi {
         given()
                 .header("Authorization", "Bearer " + token)
                 .body(requestBody)
+                .contentType(ContentType.JSON)
                 .log().all()
                 .when()
                 .delete("/BookStore/v1/Book")
