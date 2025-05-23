@@ -3,9 +3,7 @@ package demoqa.tests;
 public class TestData {
 
     public static
-//    String userName = System.getProperty("userName"),
-//    password = System.getProperty("password"),
-    String userName = "Alina",
-    password = "Kovrigina7!",
+    String userName = System.getProperty("userName"),
+    password = System.getProperty("password"),
     isbn = "9781449331818";
 }
