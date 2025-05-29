@@ -1,6 +1,6 @@
 package demoqa.helpers;
 
-import demoqa.api.AuthApi;
+import demoqa.api.AccountApiSteps;
 import demoqa.models.LoginResponseModel;
 import org.junit.jupiter.api.extension.BeforeEachCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
@@ -14,7 +14,7 @@ public class LoginExtension implements BeforeEachCallback {
 
     @Override
     public void beforeEach(ExtensionContext context) {
-        LoginResponseModel authResponse = AuthApi.login();
+        LoginResponseModel authResponse = AccountApiSteps.login();
 
         open("/favicon.ico");
         getWebDriver().manage().addCookie(new Cookie("userID", authResponse.getUserId()));

@@ -11,7 +11,7 @@ import static io.restassured.filter.log.LogDetail.STATUS;
 import static io.restassured.http.ContentType.JSON;
 
 
-public class Spec {
+public class Specs {
 
     public static RequestSpecification request = with()
             .filter(withCustomTemplates())

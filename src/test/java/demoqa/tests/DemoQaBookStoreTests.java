@@ -1,7 +1,7 @@
 package demoqa.tests;
 
-import demoqa.api.AuthApi;
-import demoqa.api.BookApi;
+import demoqa.api.AccountApiSteps;
+import demoqa.api.BookStoreApiSteps;
 import demoqa.helpers.WithLogin;
 import demoqa.models.BookModel;
 import demoqa.models.LoginResponseModel;
@@ -24,20 +24,20 @@ public class DemoQaBookStoreTests extends TestBase {
     @WithLogin
     @DisplayName("Удаление книги из профиля")
     void deleteBookTest() {
-        LoginResponseModel auth = step("Авторизация пользователя через API", AuthApi::login);
+        LoginResponseModel auth = step("Авторизация пользователя через API", AccountApiSteps::login);
         String token = auth.getToken();
         String userId = auth.getUserId();
 
         step("Удаляем корзину пользователя", () ->
-                BookApi.deleteAllBooks(token, userId)
+                BookStoreApiSteps.deleteAllBooks(token, userId)
         );
 
         step("Добавляем книгу через Api", () ->
-                BookApi.addBook(token, userId, isbn)
+                BookStoreApiSteps.addBook(token, userId, isbn)
         );
 
         step("Проверяем добавленную книгу через Api", () -> {
-            List<BookModel> books = BookApi.getUserBooks(token, userId);
+            List<BookModel> books = AccountApiSteps.getUserBooks(token, userId);
             assertThat(books).extracting(BookModel::getIsbn).contains(isbn);
         });
 
@@ -47,11 +47,11 @@ public class DemoQaBookStoreTests extends TestBase {
         });
 
         step("Удаляем книгу через API", () ->
-            BookApi.deleteBook(token, userId, isbn)
+            BookStoreApiSteps.deleteBook(token, userId, isbn)
         );
 
         step("Проверка через API, что книга удалена", () -> {
-            List<BookModel> books = BookApi.getUserBooks(token, userId);
+            List<BookModel> books = AccountApiSteps.getUserBooks(token, userId);
             assertThat(books).extracting(BookModel::getIsbn).doesNotContain(isbn);
         });
     }

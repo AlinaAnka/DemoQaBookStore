@@ -1,14 +1,14 @@
 package demoqa.api;
 
 import demoqa.models.BookModel;
-import demoqa.specs.Spec;
+import demoqa.specs.Specs;
 import io.restassured.http.ContentType;
 
 import java.util.List;
 
 import static io.restassured.RestAssured.given;
 
-public class BookApi {
+public class BookStoreApiSteps {
 
     public static void addBook(String token, String userId, String isbn) {
         String requestBody = String.format(
@@ -22,7 +22,7 @@ public class BookApi {
                 .when()
                 .post("/BookStore/v1/Books")
                 .then()
-                .spec(Spec.response(201));
+                .spec(Specs.response(201));
     }
 
     public static void deleteBook(String token, String userId, String isbn) {
@@ -39,7 +39,7 @@ public class BookApi {
                 .delete("/BookStore/v1/Book")
                 .then()
                 .log().all()
-                .spec(Spec.response(204));
+                .spec(Specs.response(204));
     }
 
     public static void deleteAllBooks(String token, String userId) {
@@ -49,18 +49,6 @@ public class BookApi {
                 .when()
                 .delete("/BookStore/v1/Books")
                 .then()
-                .spec(Spec.response(204));
-    }
-
-    public static List<BookModel> getUserBooks(String token, String userId) {
-        return given()
-                .header("Authorization", "Bearer " + token)
-                .when()
-                .get("/Account/v1/User/" + userId)
-                .then()
-                .spec(Spec.response(200))
-                .extract()
-                .jsonPath()
-                .getList("books", BookModel.class);
+                .spec(Specs.response(204));
     }
 }
