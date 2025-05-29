@@ -1,10 +1,7 @@
 package demoqa.api;
 
-import demoqa.models.BookModel;
 import demoqa.specs.Specs;
 import io.restassured.http.ContentType;
-
-import java.util.List;
 
 import static io.restassured.RestAssured.given;
 
